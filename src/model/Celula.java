@@ -12,66 +12,73 @@ package src.model;
  * - CINZA: Área já queimada (não propaga fogo)
  */
 public enum Celula {
-    
+
     // Constantes do enum com seus respectivos emojis para visualização
-    VAZIO("⬜"),      // Solo vazio - representado por quadrado branco
-    ARVORE("🌳"),     // Árvore saudável - representada por emoji de árvore
-    QUEIMANDO("🔥"),  // Árvore queimando - representada por emoji de fogo
-    CINZA("⬛");      // Área queimada - representada por quadrado preto
-    
+    VAZIO("⬜"), // Solo vazio - representado por quadrado branco
+    ARVORE("🌳"), // Árvore saudável - representada por emoji de árvore
+    QUEIMANDO("🔥"), // Árvore queimando - representada por emoji de fogo
+    CINZA("⬛"); // Área queimada - representada por quadrado preto
+
     // Atributo que armazena o símbolo visual da célula
     private final String simbolo;
-    
+
     /**
      * Construtor do enum
+     * 
      * @param simbolo Representação visual da célula (emoji ou caractere)
      */
     Celula(String simbolo) {
         this.simbolo = simbolo;
     }
-    
+
     /**
      * Retorna o símbolo visual da célula
+     * 
      * @return String com o emoji/caractere representativo
      */
     public String getSimbolo() {
         return simbolo;
     }
-    
+
     /**
      * Verifica se a célula é uma árvore
+     * 
      * @return true se for árvore, false caso contrário
      */
     public boolean isArvore() {
         return this == ARVORE;
     }
-    
+
     /**
      * Verifica se a célula está queimando
+     * 
      * @return true se estiver queimando, false caso contrário
      */
     public boolean isQueimando() {
         return this == QUEIMANDO;
     }
-    
+
     /**
      * Verifica se a célula é cinza (já queimada)
+     * 
      * @return true se for cinza, false caso contrário
      */
     public boolean isCinza() {
         return this == CINZA;
     }
-    
+
     /**
      * Verifica se a célula está vazia
+     * 
      * @return true se estiver vazia, false caso contrário
      */
     public boolean isVazio() {
         return this == VAZIO;
     }
-    
+
     /**
      * Retorna uma representação textual da célula
+     * 
      * @return O símbolo visual da célula
      */
     @Override
