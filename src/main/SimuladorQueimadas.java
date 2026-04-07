@@ -312,24 +312,44 @@ public class SimuladorQueimadas extends JFrame {
     }
 
     /**
-     * Mostra uma janela com os resultados finais da simulação
-     */
-    private void mostrarResultadoFinal() {
-        JOptionPane.showMessageDialog(this,
-                String.format("=== RESULTADO DA SIMULAÇÃO ===\n\n" +
-                        "Total de passos: %d\n" +
-                        "Árvores iniciais: %d\n" +
-                        "Árvores queimadas: %d (%.1f%%)\n" +
-                        "Árvores sobreviventes: %d\n\n" +
-                        "A simulação terminou porque não há mais fogo ativo.",
-                        incendio.getPassos(),
-                        incendio.getTotalArvoresIniciais(),
-                        incendio.getArvoresQueimadas(),
-                        incendio.getPercentualQueimado(),
-                        incendio.getArvoresRestantes()),
-                "Fim da Simulação",
-                JOptionPane.INFORMATION_MESSAGE);
-    }
+ * Mostra uma janela com os resultados finais da simulação
+ * CORRIGIDO para mostrar números consistentes
+ */
+private void mostrarResultadoFinal() {
+    // Garante que a contagem final está atualizada
+    int arvoresIniciais = incendio.getTotalArvoresIniciais();
+    int arvoresSobreviventes = incendio.getArvoresRestantes();
+    int arvoresQueimadas = incendio.getArvoresQueimadas();
+    double percentualQueimado = incendio.getPercentualQueimado();
+    
+    // Conta as cinzas diretamente para verificar consistência
+    int cinzas = incendio.getFloresta().contarCinza();
+    
+    JOptionPane.showMessageDialog(this, 
+        String.format("=== RESULTADO DA SIMULAÇÃO ===\n\n" +
+                      "Total de passos: %d\n" +
+                      "Dimensão da floresta: %d x %d (%d células)\n" +
+                      "--------------------------------\n" +
+                      "Árvores INICIAIS: %d\n" +
+                      "Árvores SOBREVIVENTES: %d\n" +
+                      "Árvores QUEIMADAS: %d (%.1f%%)\n" +
+                      "--------------------------------\n" +
+                      "Áreas queimadas (cinzas): %d\n" +
+                      "Verificação de consistência: %s\n\n" +
+                      "A simulação terminou porque não há mais fogo ativo.",
+                      incendio.getPassos(),
+                      incendio.getFloresta().getLinhas(),
+                      incendio.getFloresta().getColunas(),
+                      incendio.getFloresta().getLinhas() * incendio.getFloresta().getColunas(),
+                      arvoresIniciais,
+                      arvoresSobreviventes,
+                      arvoresQueimadas,
+                      percentualQueimado,
+                      cinzas,
+                      incendio.isContagemConsistente() ? "✓ CONSISTENTE" : "✗ INCONSISTENTE"),
+        "Fim da Simulação",
+        JOptionPane.INFORMATION_MESSAGE);
+}
 
     /**
      * Método principal - ponto de entrada do programa
